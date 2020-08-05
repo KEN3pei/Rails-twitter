@@ -8,6 +8,7 @@ end
 
 gem 'rails',        '5.1.6'
 gem 'puma',         '3.9.1'
+gem "bootstrap-sass", "~>3.3.6"
 gem 'sass-rails',   '5.0.6'
 gem 'uglifier',     '3.2.0'
 
@@ -16,12 +17,20 @@ gem 'jquery-rails', '4.3.1'
 gem 'turbolinks',   '5.0.1'
 gem 'jbuilder',     '2.6.4'
 
+gem 'twitter'
+
+gem 'devise'
+gem 'omniauth-twitter'
+
+
 group :development, :test do
   gem 'sqlite3',      '1.3.13'
   gem 'byebug', '9.0.6', platform: :mri
   
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  
+  gem 'pry-rails'
 end
 
 group :development do
