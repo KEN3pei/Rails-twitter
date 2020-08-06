@@ -10,7 +10,8 @@
             <% @serches.each do |text| %>
                 <p><%= text %></p>
                 <p>いいねの数</p>
-                <p><%= @favourites_count[n += 1] %></p>
+                <p><%= @favourites_count[n] %></p>
+            <% n += 1 %>
             <% end %>
         </div>
         <div class="col-md-3">

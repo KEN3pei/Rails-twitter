@@ -28,14 +28,16 @@ class ApisController < ApplicationController
     # trands[0][:trends][1][:name]
     
     # query = "野球"
-    # query = "野球 filter:images min_replies:10 min_retweets:500 min_faves:500 exclude:retweets"
-    query = "野球 filter:images exclude:retweets"
+    query = "野球 filter:images min_replies:10 min_retweets:500 min_faves:500 exclude:retweets"
+    # query = "野球 filter:images exclude:retweets"
     query = URI.encode_www_form_component(query)
     serches = client.__send__(:perform_get, '/1.1/search/tweets.json?q=' + query + '&lang=ja&result_type=recent&count=10')
+    # serches[:statuses][1][:favorite_count]
+    # serches[:statuses][1][:user][:favourites_count]
     
     @favourites_count = []
     for i in 0..9 do 
-        favourites_count = serches[:statuses][0][:favourites_count]
+        favourites_count = serches[:statuses][i][:favorite_count]
         @favourites_count.push(favourites_count.to_i)
     end
     
