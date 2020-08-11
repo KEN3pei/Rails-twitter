@@ -18,9 +18,10 @@ gem 'turbolinks',   '5.0.1'
 gem 'jbuilder',     '2.6.4'
 
 gem 'twitter'
-
 gem 'devise'
 gem 'omniauth-twitter'
+gem 'dotenv-rails'
+
 
 
 group :development, :test do
