@@ -7,15 +7,6 @@ class ApisController < ApplicationController
         config.access_token        = "962305297489444865-KnFDl9zAvdGQqr7x2WSeR7jn4AiqjnS"
         config.access_token_secret = "V0LRYiU9WKY4PQeP0l9BClF8B8YYR5x1de3HQkvW29EHf"
       end
-    # これでリストが取れる
-    # client.user_timeline.each { |list| p list.slug } 
-    
-    # 全てのfollower
-    # fs = []
-    # client.followers.each { |follower| fs.push(follower.name) }
-    
-    #投稿
-    # client.update("rails test now")
     
     # rate_limit_status = client.__send__(:perform_get, '/1.1/application/rate_limit_status.json')
     # rate_limit_status[:resources][:search][:"/search/tweets"]
@@ -24,7 +15,6 @@ class ApisController < ApplicationController
     
     filter = "filter:images min_replies:10 min_retweets:500 min_faves:500 exclude:retweets"
     query = "野球" + filter
-    # query = "野球 filter:images exclude:retweets"
     query = URI.encode_www_form_component(query)
     serches = twitter.__send__(:perform_get, '/1.1/search/tweets.json?q=' + query + '&lang=ja&result_type=recent&count=10')
     serches = client.__send__(:perform_get, '/1.1/search/tweets.json?q=' + query + '&lang=ja&result_type=recent&count=10')
@@ -40,7 +30,8 @@ class ApisController < ApplicationController
         data = []
         data.push(trands.dig(0, :trends, i, :name))
         data.push(trands.dig(0, :trends, i, :url))
-        data.push(trands.dig(0, :trends, i, :tweet_volume))
+        trand = trands.dig(0, :trends, i, :tweet_volume).try(:to_s, :delimited)
+        data.push(trand)
         @trands.push(data)
     end
     
@@ -58,7 +49,7 @@ class ApisController < ApplicationController
     @favourites_count = []
     for i in 0..9 do 
         favourites_count = serches.dig(:statuses, i, :favorite_count)
-        @favourites_count.push(favourites_count.to_i)
+        @favourites_count.push(favourites_count.to_s(:delimited))
     end
     
     @serches = []

@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   
   require 'oauth' 
   require 'json'  
+  require "active_support/core_ext/numeric/conversions"
   
   protect_from_forgery with: :exception
   
