@@ -1,17 +1,24 @@
-<h1>Apis#index</h1>
 
 <a href="/">トップページへ</a>
 
 <div class="container">
     <div class="row">
         <div class="col-md-3">
+            <%= form_with url: apis_serch_url do |form| %>
+                <%= form.text_field :word %>
+                <%= form.submit %>
+            <% end %>
             <p>野球</p>
             <% n = 0 %>
             <% @serches.each do |text| %>
-                <p><%= link_to text, @urls[n] %></p>
+                <% if @urls[n].nil? %>
+                    <p><%= text %></p>
+                <% else %>
+                    <p><%= link_to text, @urls[n] %></p>
+                <% end %>
                 <p>いいねの数</p>
                 <p><%= @favourites_count[n] %></p>
-            <% n += 1 %>
+                <% n += 1 %>
             <% end %>
         </div>
         <div class="col-md-3">
